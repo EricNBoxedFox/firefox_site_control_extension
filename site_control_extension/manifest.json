@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "name": "Site Access Control",
+  "version": "1.0.0",
+  "description": "Controls site access based on whitelist/blacklist configuration. Preventing the browser from visiting sites.\n Source code available here: https://github.com/EricNBoxedFox/firefox_site_control_extension",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
+  },
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>",
+    "storage"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "Site Access Control",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "96": "icons/icon-96.png"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "site-control@firefox-profile-creator"
+    }
+  },
+  "author": "Eric Nielsen"
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Site Access Control</title>
+  <style>
+    body {
+      width: 320px;
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 12px;
+      margin: 0;
+      background: #f5f6f8;
+      color: #15141a;
+    }
+
+    h1 {
+      font-size: 14px;
+      margin: 0 0 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #b12704;
+    }
+
+    .status-dot.active {
+      background: #16b639;
+    }
+
+    label {
+      font-size: 12px;
+      display: block;
+      margin-bottom: 2px;
+      color: #5b5b66;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    select, input[type="text"] {
+      padding: 4px 6px;
+      border: 1px solid #d7d7db;
+      border-radius: 3px;
+      font-size: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 4px 8px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 11px;
+      background: #0061e0;
+      color: white;
+    }
+
+    button:hover {
+      background: #0052c4;
+    }
+
+    button.secondary {
+      background: #f9f9fb;
+      color: #15141a;
+      border: 1px solid #d7d7db;
+    }
+
+    button.secondary:hover {
+      background: #e0e0e6;
+    }
+
+    .site-list {
+      max-height: 180px;
+      overflow-y: auto;
+      border: 1px solid #d7d7db;
+      border-radius: 3px;
+      padding: 4px;
+      margin-bottom: 6px;
+      background: white;
+    }
+
+    .site-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2px 4px;
+      font-size: 11px;
+      border-radius: 2px;
+    }
+
+    .site-item:hover {
+      background: #f0f0f4;
+    }
+
+    .site-item button {
+      padding: 0 4px;
+      font-size: 10px;
+      min-width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .add-row {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .import-section, .export-section {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #e0e0e6;
+    }
+
+    textarea {
+      width: 100%;
+      height: 50px;
+      font-size: 10px;
+      font-family: monospace;
+      padding: 4px;
+      border: 1px solid #d7d7db;
+      border-radius: 3px;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    .msg {
+      font-size: 10px;
+      margin-top: 4px;
+      min-height: 12px;
+    }
+
+    .msg.error { color: #b12704; }
+    .msg.success { color: #16b639; }
+
+    .empty-msg {
+      font-size: 10px;
+      color: #98989d;
+      text-align: center;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    <span class="status-dot" id="statusDot"></span>
+    Site Access Control
+  </h1>
+
+  <div class="row">
+    <label style="margin:0; white-space:nowrap;">Enabled:</label>
+    <input type="checkbox" id="enabledToggle" style="width:auto;">
+    <select id="modeSelect" style="flex:1;">
+      <option value="blacklist">Blacklist (block listed)</option>
+      <option value="whitelist">Whitelist (allow only listed)</option>
+    </select>
+  </div>
+
+  <label>Sites:</label>
+  <div class="site-list" id="siteList"></div>
+  <div class="add-row">
+    <input type="text" id="newSiteInput" placeholder="e.g. *.example.com">
+    <button id="addSiteBtn">Add</button>
+  </div>
+
+  <div class="export-section">
+    <label>Export Config:</label>
+    <textarea id="exportArea" readonly></textarea>
+    <div style="display:flex; gap:4px;">
+      <button id="exportBtn" class="secondary">Generate</button>
+      <button id="copyExportBtn" class="secondary">Copy</button>
+    </div>
+  </div>
+
+  <div class="import-section">
+    <label>Import Config:</label>
+    <textarea id="importArea" placeholder="Paste config string here..."></textarea>
+    <div style="display:flex; gap:4px;">
+      <button id="importBtn">Import</button>
+    </div>
+    <div class="msg" id="importMsg"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
